@@ -8,7 +8,6 @@
 ---------------------------------------------------------------
 
 # ENGLISH VERSION
-**As soon as I finish writing in Spanish, I will try to write it in English. Meanwhile, Google Translate will help you.**
 
 - [What is it for?](#para-que-sirve)
 - [How does it work?](#como-funciona)
