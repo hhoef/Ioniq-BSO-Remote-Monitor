@@ -48,51 +48,46 @@ Well, Hyundai Ioniq PHEV or EV vehicles sold in Europe do not include any monito
 An important point is that I am not responsible for the manipulation you do to your OBD or your Ioniq. Connecting an OBD to the car does not void the warranty, but if you make a mistake, do it wrong or produce a short circuit, it is your sole responsibility.
 
 
-## ¿Como funciona?
-Aunque os pueda parecer complicado, el sistema es mas sencillo de lo que parece. Mediante un lector OBD2 modificado para funcionar con WiFi como cliente, una placa de la familia ESP8266 se conecta al OBD2 y recoge los datos necesarios que envía a un broker MQTT. Se ha probado mediante los servidores gratuitos de Adafruit y CloudMQTT, aunque puede utilizarse cualquier otro. Posteriormente desde nuestro smartphone veremos a tiempo real el estado de nuestro vehículo a través de una página web que está copiada en nuestro dispositivo, y que no precisa instalar ninguna aplicación o contratar servicios externos de web o bases de datos. Además, si el usuario dispone de mínimos conocimientos de web y javascript puede crear la pantalla a su medida. Anímate a modificar los HTML's a tu gusto y visita [mi lista de Youtube](https://www.youtube.com/playlist?list=PLTzjC-Oy2s-5wAB1-0_I-gAGDHgAlO9_A) para ver algunos videos de ejemplo.
+## How does it work?
+Although it may seem complicated, the system is simpler than it seems. Using an OBD2 reader modified to work with WiFi as a client, a board from the ESP8266 family connects to OBD2 and collects the necessary data that it sends to an MQTT broker. It has been tested using the free Adafruit and CloudMQTT servers, although any other can be used. Later from our smartphone we will see the status of our vehicle in real time through a web page that is copied to our device, and that does not require installing any application or contracting external web services or databases. In addition, if the user has minimal knowledge of the web and javascript, he can create the screen to suit him. Go ahead and modify the HTML's to your liking and visit [my Youtube playlist](https://www.youtube.com/playlist?list=PLTzjC-Oy2s-5wAB1-0_I-gAGDHgAlO9_A) to see some example videos.
+
+## Features
+The application allows monitoring the following data:
+* Current battery charge in % (SOC Display)
+* Battery charge or discharge power
+* Battery voltage
+* Charge or discharge intensity
+* Prediction of remaining kilometers in electric mode
+* Maximum, minimum and average temperature of the battery
+* Battery fan status
+* Charging connector connected or disconnected
+* Amount of energy charged
+* Estimated upload completion time
+* Report via Telegram
+* DDNS client
+* Possibility to link with IFTTT to turn off chargers or other ideas. Your imagination commands...
 
 
-![esquema](https://user-images.githubusercontent.com/50306926/59946559-24200300-946b-11e9-8d00-6204caec7187.jpg)
+## What I need?
+* First of all patience and read the instructions. If you get tired of reading, don't continue.
 
-## Funcionalidades
-La aplicación permite monitorizar los siguientes datos:
-* Carga actual de la batería en % (SOC Display)
-* Potencia de carga o descarga de la batería
-* Voltaje del batería
-* Intensidad de carga o descarga
-* Previsión de kilómetros restantes en modo eléctrico
-* Temperatura máxima, mínima y media de la batería
-* Estado del ventilador de las baterías
-* Conector de carga conectado o desconectado
-* Cantidad de energía cargada
-* Tiempo estimado de finalización de carga
-* Informe vía Telegram
-* Cliente DDNS
-* Posibilidad de enlazar con IFTTT para apagar cargadores u otras ideas. Tu imaginación manda...
+* 2 ESP8266 family boards. I use a Lolin MCU V3 for the OBD and a WiFi Kit 8 from [Heltec Automation](https://heltec.org/project/wifi-kit-8/) for collecting and sending data. You can really use whatever boards you want, as the software should work just fine. For tests I have also used Wemos D1 mini. The WiFi Kit 8 has a 0.91″ OLED screen and an automatic lithium battery charger. This means that when the car is charging, the plate has a battery for several days. You can put a power bank or any other system you can think of since the Ioniq's USB's do not have power during charging.
 
+* 1 OBD2 unit **that works with the Hyunday Ioniq** PHEV and is Bluetooth or WiFi.
 
+* The [ESP-LINK](https://github.com/jeelabs/esp-link) software from [JeeLabs](https://github.com/jeelabs) which you will find at https://github.com/jeelabs /esp-link . This software allows you to create a gateway between the OBD UART and our WiFi and you must install it on the first of the ESP boards, in my case the Lolin NodeMCU. JeeLabs has all the documentation about it. Please read it in detail in order to install it.
 
-## ¿Qué necesito?
-* Primero de todo paciencia y leer las instrucciones. Si te cansa leer, no sigas.
+* A 2, 3 or 4G router in your vehicle to be able to send the data to the MQTT server, or your own smartphone with WiFi sharing activated. I have a D-Link DWR-730 router bought second-hand for just over €20, but the minimal data traffic makes any use.
 
-* 2 placas de la familia ESP8266. Yo utilizo una Lolin MCU V3 para el OBD y una WiFi Kit 8 de [Heltec Automation](https://heltec.org/project/wifi-kit-8/) para la recogida y envío de datos. Realmente puedes utilizar las placas que te vengan en gana, ya que el software debería funcionar sin problemas. Para pruebas también he utilizado Wemos D1 mini. La WiFi Kit 8 dispone de pantalla 0.91″ OLED y cargador automático de baterías de litio. Eso permite que cuando el coche está cargando, la placa dispone de batería para varios días. Puedes poner un power bank o cualquier otro sistema que se te ocurra ya que los USB's del Ioniq no disponen de corriente durante la carga.
+## Previous questions about the project
 
-* 1 unidad de OBD2 **que funcione con el Hyunday Ioniq** PHEV y que sea Bluetooth o WiFi.
-
-* El software [ESP-LINK](https://github.com/jeelabs/esp-link) de [JeeLabs](https://github.com/jeelabs) que encontrarás en  https://github.com/jeelabs/esp-link . Este software permite realizar un gateway entre la UART del OBD y nuestra WiFi y deberás instalarlo en la primera de las placas ESP, en mi caso la Lolin NodeMCU. JeeLabs tiene toda la documentación al respecto. Por favor, leela en detalle para poder instalarla.
-
-* Un router 2, 3 ó 4G en tu vehículo para poder enviar los datos al servidor de MQTT, o tu propio smartphone con la compartición de WiFi activada. Yo dispongo de un router D-Link DWR-730 comprado de segunda mano por poco mas de 20€, pero el mínimo tráfico de datos hace que cualquiera sirva.
-
-
-## Preguntas previas sobre el proyecto
-
-### ¿Como sé que mi OBD va a funcionar?
-Lo siento, pero deberás hacr pruebas previas para saber que sirve. Yo todavía no puedo darte un link correcto de compra o de un fabricante concreto, ya que el mio hace muchos años que lo compré y funciona perfectamente, pero tras numerosas pruebas y compras de diferentes OBD's sabemos que los que tienen version 1.5 de firmware disponen de una mayor probabilidad de funcionar, aunque no todos. Suelen funcionar OBD's antiguos, de mas de 3 ó 4 años. Además necesitarás sacar la placa bluetooth o WiFi que lleva para realizar la modificación necesaria, por lo que no podrá ser un OBD monoplaca, o que no permita su manipulación. Si el OBD que tienes dispone de la placa bluetooth o WiFi separable, antes de manipularlo deberás probar con Torque Pro y los ficheros PID de [JejuSoul](https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs) que encontrarás en https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs. No te voy a engañar... es una loteria encontrar uno que funcione, pero los productos de China son así. Sobre todo no te fies del exterior con las imagenes que pondré ya que no es garantia de que funcione. Si con los PID de [JejuSoul](https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs) te funciona y puedes leer parámetros de la batería, casi seguro que es garantía de éxito.
+### How do I know my OBD will work?
+I'm sorry, but you will have to do previous tests to know what works. I still cannot give you a correct purchase link or a specific manufacturer, since I bought mine many years ago and it works perfectly, but after numerous tests and purchases of different OBD's we know that those with firmware version 1.5 have a higher chance of working, though not all. Old OBD's usually work, more than 3 or 4 years old. You will also need to remove the Bluetooth or WiFi board that it has to make the necessary modification, so it cannot be a single-board OBD, or one that does not allow its manipulation. If the OBD you have has a detachable Bluetooth or WiFi board, before handling it you should try Torque Pro and the PID files from [JejuSoul](https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs ) which you will find at https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs. I'm not going to lie to you... it's a lottery to find one that works, but Chinese products are like that. Above all, do not trust the exterior with the images that I will put since it is not a guarantee that it will work. If the PIDs from [JejuSoul](https://github.com/JejuSoul/OBD-PIDs-for-HKMC-EVs) works for you and you can read battery parameters, it is almost certainly a guarantee of success.
 <br/>
 <br/>
 
-### ¿Pero voy a poder usar el OBD en otros programas?
-Si, yo continuo utilizándolo con Torque o Hybrid Assistant desde mi smartphone o, mejor todavía, desde el multimedia de mi Ioniq. Por ese motivo utilizo dos ESP8266 y así poder utilizar otros programas. Eso si, no puedo utilizar multiples APP's y mi aplicación simultáneamente. Adjunto captura de Torque pro en mi multimedia del Ioniq:
+### But will I be able to use the OBD in other programs?
+Yes, I continue to use it with Torque or Hybrid Assistant from my smartphone or, better yet, from the multimedia of my Ioniq. For that reason I use two ESP8266 and thus be able to use other programs. That if, I can not use multiple APP's and my application simultaneously. Attached capture of Torque pro in my Ioniq multimedia:
 <br/>
 <br/>
 
@@ -100,75 +95,73 @@ Si, yo continuo utilizándolo con Torque o Hybrid Assistant desde mi smartphone 
 <br/>
 <br/>
 
-### WTF!!! ¿Puedo montar Torque Pro o Hybrid Assitant en el multimedia de mi Ioniq?
-Si, pero no es aquí donde te explicaré eso. Visita [Ioniq Spain](https://ioniqspain.wordpress.com/2019/02/20/acceso-completo-a-la-capa-android/), el blog de nuestro compañero Smoje79, y podrás ver como se hace.
+### WTF!!! Can I mount Torque Pro or Hybrid Assistant on my Ioniq media?
+Yes, but this is not where I will explain that to you. Visit [Ioniq Spain](https://ioniqspain.wordpress.com/2019/02/20/acceso-completo-a-la-capa-android/), the blog of our colleague Smoje79, and you will be able to see how it is done.
 
-
-### ¿Pero porqué no utilizar un OBD WiFi directamente? 
-Los OBD's WiFi que hay en el mercado funcionan como punto de acceso (AP) y no como estación (STA). La placa encargada de recoger los datos se conectaría sin problemas al OBD, pero no podría salir a Internet para enviar los datos. Por ese motivo modifico el OBD poniendo un ESP8266. Si alguien tiene alguna otra idea, será bienvenida.
+### But why not use a WiFi OBD directly?
+The WiFi OBD's on the market work as an access point (AP) and not as a station (STA). The board in charge of collecting the data would connect without problems to the OBD, but it would not be able to go out to the Internet to send the data. For that reason I modify the OBD by putting an ESP8266. If anyone has any other ideas, they are welcome.
 <br/>
 <br/>
 
-### ¿Pero porqué no usar un OBD Bluetooth directamente?
-Esa fue mi primera idea, mediante un ESP32 conectar al OBD y de ahí enviar los datos al broker MQTT. Lo siento, no fuí capaz de utilizar el Bluetooth clasico con éxito mediante el IDE de Arduino. Mediante el ESP-IDF de Espressif parece que sería posible, pero mis conocimientos en el ESP32 no son suficientes por el momento.
+### But why not use a Bluetooth OBD directly?
+That was my first idea, using an ESP32 to connect to the OBD and from there send the data to the MQTT broker. Sorry, I was not able to use classic Bluetooth successfully through the Arduino IDE. Using Espressif's ESP-IDF it seems that it would be possible, but my knowledge of ESP32 is not sufficient at the moment.
 <br/>
 <br/>
 
-### ¿Porqué Lolin NodeMCU y no otra placa de la familia ESP?
-Muy simple, es la que tenía a mano. Una muy buena opción es Wemos D1 Mini ya que es pequeña, igual de barata y funciona perfectamente. Posiblemente sustituya Lolin por esta placa. Agadeceré que me digáis cual usáis vosotros. 
+### Why Lolin NodeMCU and not another ESP family board?
+Very simple, it's the one I had on hand. A very good option is Wemos D1 Mini since it is small, just as cheap and works perfectly. Possibly replace Lolin with this plate. I'd appreciate it if you tell me which one you use.
 <br/>
 <br/>
 
----------------------------------------------------------------
+-------------------------------------------------- -------------
 
 
-## Instalación del software ESP-LINK
-Después de hacer diferentes pruebas con software propio, [ESP-LINK](https://github.com/jeelabs/esp-link) me ha parecido la mejor opción. Es un software fluido, facil de gestionar y que nos permite multitud de opciones. Tal como ya he dicho anteriormente, seguid las instrucciones de instalación y comprobad que funciona aunque os adjunto la configuración utilizada por mi compañero Ángel desde el programador de firmware del NodeMCU: 
+## Installation of the ESP-LINK software
+After doing different tests with my own software, [ESP-LINK](https://github.com/jeelabs/esp-link) has seemed to me the best option. It is a fluid software, easy to manage and that allows us a multitude of options. As I have said before, follow the installation instructions and check that it works, although I am attaching the configuration used by my colleague Ángel from the NodeMCU firmware programmer:
 
 ![firmwareESPLINK](https://user-images.githubusercontent.com/50306926/59951787-40776c00-947a-11e9-9f69-225841a29907.jpg)
 
 <br/>
 <br/>
 
-Una vez instalado el ESP-LINK conectaros a la Wifi que la placa levantará y que veréis que está sin seguridad, para posteriormente vía web ir a la IP 192.168.4.1. Deberéis cambiar la velocidad de conexión de la UART desde la opción de menú *"μC CONSOLE"*, dejándolo a 38400 bauds:
+Once the ESP-LINK is installed, connect to the Wi-Fi that the plate will raise and that you will see that it is without security, to later go to the IP 192.168.4.1 via the web. You will have to change the connection speed of the UART from the menu option *"μC CONSOLE"*, leaving it at 38400 bauds:
 
 ![photo5793915804792762996](https://user-images.githubusercontent.com/50306926/59952544-e2985380-947c-11e9-9bc5-ad3b606f6fc7.jpg)
 
 <br/>
 <br/>
 
-Os recomiendo desactivar el log desde *"Debug log"* dejándolo en OFF:
+I recommend you disable the log from *"Debug log"* leaving it OFF:
 
 ![photo5793915804792762994](https://user-images.githubusercontent.com/50306926/59952545-e2985380-947c-11e9-86ba-340452ddb4fa.jpg)
 
 <br/>
 <br/>
 
-Por último podéis poner una IP fija para que la placa encargada de recoger los datos del OBD pueda encontrar al ESP-LINK- Esta IP junto el puerto 2323 es lo que deberéis configurar mas tarde en la segunda placa ESP8266:
+Finally you can put a fixed IP so that the board in charge of collecting the OBD data can find the ESP-LINK- This IP together with port 2323 is what you will have to configure later on the second ESP8266 board:
 
 ![photo5793915804792762995](https://user-images.githubusercontent.com/50306926/59952543-e2985380-947c-11e9-91af-2c1fb08e84d6.jpg)
 
 <br/>
 <br/>
 
-# Modificación del OBD
-Antes de nada, gracias a Ángel por su idea. El fué el primero en modificar su OBD y en explicame lo que había hecho :-)
-En principio las modificaciones son sencillas, pero requieren habilidad en soldaduras de pequeño tamaño. Mi OBD originalente era así:
+# OBD Modification
+First of all, thanks to Ángel for his idea. He was the first to modify his OBD and to explain to me what he had done :-)
+In principle, the modifications are simple, but require skill in small size welds. My original OBD was like this:
 
 ![IMG_20190126_114531](https://user-images.githubusercontent.com/50306926/59947687-33548000-946e-11e9-9c94-68ce4eea7137.jpg)
 
 <br/>
 <br/>
 
-Se tiene que desoldar la placa Bluetooth para poder conectar los pines del ESP8266. En mi modelo el conexionado es el siguiente, pero dependiendo de como sea tu OBD, deberás investigar que pines utilizar. Yo no puedo explicártelo si es diferente.
+You have to desolder the Bluetooth board to be able to connect the ESP8266 pins. In my model the connection is as follows, but depending on how your OBD is, you will have to investigate which pins to use. I can't explain it to you if it's different.
 
 ![pineout](https://user-images.githubusercontent.com/50306926/59955764-85a49980-948c-11e9-807d-163d0b577c75.jpg)
 <br/>
 <br/>
 
 
-Si, he probado otras placas mas pequeñas como la Wemos D1 Mini que funciona perfectamente, o la ESP-01 que cabía perfectamente dentro del OBD. Para no sobrecargar el regulador de tensión de 3.3v que lleva el propio OBD, le instalé un regulador que se alimentaba desde los 5 voltios, tal como hago con la Lolin NodeMCU, pero no acabó de convencerme la temperatura del regulador de tensión. En la siguiente imagen veréis como quedaba el montaje con ESP-01:
-
+Yes, I have tried other smaller boards like the Wemos D1 Mini that works perfectly, or the ESP-01 that fit perfectly inside the OBD. In order not to overload the 3.3v voltage regulator that the OBD itself has, I installed a regulator that was powered from 5 volts, as I do with the Lolin NodeMCU, but the temperature of the voltage regulator did not convince me. In the following image you will see how the assembly with ESP-01 looked:
 ![ESP01](https://user-images.githubusercontent.com/50306926/59949205-b4ae1180-9472-11e9-8be2-156f9dbae6aa.jpg)
 
 <br/>
@@ -181,17 +174,17 @@ Si, he probado otras placas mas pequeñas como la Wemos D1 Mini que funciona per
 <br/>
 
 
-Si todo es correcto, puedes probar a conectarte al OBD desde un navegador y acceder al menú *"μC CONSOLE"*. Desde ahí teclea el comando *ATZ* y deberás obtener la respuesta de la versión del firmware del OBD, en mi caso *ELM 327 v1.5*. Si es así, todo funciona correctamente y ya está realizado lo mas duro del montaje.
+If everything is correct, you can try to connect to the OBD from a browser and access the *"μC CONSOLE"* menu. From there type the command *ATZ* and you should get the response of the OBD firmware version, in my case *ELM 327 v1.5*. If so, everything works correctly and the hardest part of the assembly is already done.
 
 ![atz](https://user-images.githubusercontent.com/50306926/59956657-cbb02c00-9491-11e9-886a-4882cf2a8678.jpg)
 <br/>
 <br/>
 
 
-# Instalación de Ioniq BSO Remote Monitor en ESP8266
+# Installation of Ioniq BSO Remote Monitor on ESP8266
 
-## Configuración de `Config.h`
-Ahora ya podemos pasar a instalar el software del Ioniq BSO Remote Monitor en nuestra segunda placa ESP8266. Como ya he dicho anteriormente, puedes utilizar la que te venga en gana, pero deberás configurar el `Config.h` antes de compilar el código. En estas 4 primeras líneas puedes escoger si utilizar o no el bot de Telegram, cliente de DDNS (DNS dinámico), habilitar el modo test para pruebas sin el OBD y si utilizas un ESP WIFI Kit 8 de Heltec o cualquier otro ESP. Si no tienes esa placa, déjala comentada ya que podrás usar cualquiera.
+## Configuration of `Config.h`
+Now we can move on to installing the Ioniq BSO Remote Monitor software on our second ESP8266 board. As I said before, you can use whichever you want, but you will need to configure the `Config.h` before compiling the code. In these first 4 lines you can choose whether or not to use the Telegram bot, DDNS client (Dynamic DNS), enable the test mode for tests without the OBD and if you use an ESP WIFI Kit 8 from Heltec or any other ESP. If you don't have that plate, leave it commented since you can use any of them.
 
 ```c#
 #define ENABLE_TELEGRAM;          //Disconnect if you do not want notifications by Telegram bot
@@ -203,8 +196,8 @@ Ahora ya podemos pasar a instalar el software del Ioniq BSO Remote Monitor en nu
 <br/>
 
 
-### Configuración de WiFi y OBD
-`Config.h` lleva la posibilidad de utilizar dos configuraciones de WiFi y OBD diferentes. La primera es la que se usa si habilitas el `TEST_MODE`. Este modo permite trabajar sin un OBD, enviándose tramas de MQTT generadas manualmente y que permiten probar la aplicación y su funcionamiento en tu smartphone o en un navegador en tu ordenador. Puedes modificar, añadir o quitar tramas de prueba desde la función `testString`que está al final del código. Verás que el `TEST_MODE` incluye una IP del OBD, pero no es necesaria que exista realmente. Debes desabilitar `TEST_MODE` para el poder trabajar de forma normal. Fíjate que el puerto es el 2323, que es junto al 23, los que ESP-LINK utiliza.
+### WiFi and OBD setup
+`Config.h` carries the ability to use two different WiFi and OBD configurations. The first is the one used if you enable `TEST_MODE`. This mode allows you to work without an OBD, sending manually generated MQTT frames that allow you to test the application and its operation on your smartphone or in a browser on your computer. You can modify, add or remove test strings from the `testString` function at the end of the code. You'll see that the `TEST_MODE` includes an OBD IP, but it doesn't need to actually exist. You must disable `TEST_MODE` in order for it to work normally. Note that the port is 2323, which is together with 23, the ones that ESP-LINK uses.
 
 ```c#
 // ***************************************************************************
@@ -229,18 +222,17 @@ Ahora ya podemos pasar a instalar el software del Ioniq BSO Remote Monitor en nu
 <br/>
 <br/>
 
-### Configuración del broker MQTT
-¿No conoces MQTT? Pues de nuevo Google puede ayudarte, pero puedes visitar [¿Qué es MQTT? Su importancia como protocolo IOT](https://www.luisllamas.es/que-es-mqtt-su-importancia-como-protocolo-iot/) del incombustible [Lluis Llamas](https://www.luisllamas.es/) que tiene este y otros artículos muy interesantes. 
+### MQTT broker configuration
+Don't you know MQTT? Well again Google can help you, but you can visit [What is MQTT? Its importance as an IOT protocol](https://www.luisllamas.es/que-es-mqtt-su-importancia-como-protocolo-iot/) of the fireproof [Lluis Llamas](https://www.luisllamas.es /) which has this and other very interesting articles.
 
-Si mas o menos ya estás al dia de MQTT y si estás dado de alta en ningún servicio, puedes visitar [Cloudmqtt.com](https://cloudmqtt.com) y realizar el alta gratuita. Habilita un plan `Cute Cat` con el que tienes suficiente para este servicio. Cuando estes dado de alta, habilita un usuario desde *Users and ACL* y posteriormente un *nodo* o como ellos le llaman *ACL*. Puedes crear el usuario y nodo como tu quieras, pero si no quieres modificar la configuración que he puesto utiliza el usuario `ioniq` y el nodo `bso`, y habilita lectura y escritura. Debería quedar así:
+If you are more or less up to date with MQTT and if you are registered with any service, you can visit [Cloudmqtt.com](https://cloudmqtt.com) and register for free. Enable a `Cute Cat` plan with which you have enough for this service. When you are registered, enable a user from *Users and ACL* and later a *node* or as they call it *ACL*. You can create the user and node as you like, but if you don't want to change the settings I've put in, use the `ioniq` user and the `bso` node, and enable read and write. It should be like this:
 <br/>
 
 ![cloud](https://user-images.githubusercontent.com/50306926/59964449-3ea4bb80-9501-11e9-95bd-a284a6d38ed1.jpg)
 
-La configuración en `Config.h` lleva dos ejemplos de servidores MQTT, estando el de la configuración de Adafruit comentado. Como ya he dicho, yo utilizo [CloudMQTT](https://www.cloudmqtt.com/). Todos los datos se envían en un array a un único tópic, por lo con el plan *Cute Cat* puedo trabajar sin problema. Además [CloudMQTT](https://www.cloudmqtt.com/) dispone la *persistencia*, lo que permite que aunque la placa está apagada se visualicen los últimos datos enviados. Adafruit no permite esa característica sin realizar acciones intermedias.
+The configuration in `Config.h` carries two examples of MQTT servers, with the one in the Adafruit configuration being commented out. As I said, I use [CloudMQTT](https://www.cloudmqtt.com/). All the data is sent in an array to a single topic, so with the *Cute Cat* plan I can work without problem. In addition [CloudMQTT](https://www.cloudmqtt.com/) provides *persistence*, which allows the last data sent to be displayed even though the board is turned off. Adafruit doesn't allow that feature without taking intermediate actions.
 
-Por supuesto que podéis utilizar el servidor MQTT que mas os guste. Espero vuestros comentarios al respecto.
-
+Of course you can use the MQTT server that you like the most. I'll be waiting your comments about it.
 ```c#
 /*
 // ***************************************************************************
@@ -268,16 +260,16 @@ const char* nodemqtt= "ioniq/bso";               // Your topiq in CloudMQTT
 <br/>
 
 
-### Configuración de Telegram
-El siguiente bloque es la configuración del bot de Télegram, el cual permite recibir los informes de carga cuando esta finaliza:
+### Telegram Settings
+The next block is the configuration of the Telegram bot, which allows receiving the upload reports when it is finished:
 
 ![telegram](https://user-images.githubusercontent.com/50306926/59963526-59bcfe80-94f4-11e9-8425-da87d4fcc1f0.jpg)
 
-La configuración es mu sencilla, pero dirás...¿Como diablos creo y configuro el bot de Telegram?. Pues primero de todo, Google vuelve a ayudarte y ahí encontrarás respuestas. De todas formas te dejo unos links que pueden ser de interés:
+The configuration is very simple, but you will say... How the hell do I create and configure the Telegram bot? Well, first of all, Google helps you again and there you will find answers. Anyway, here are some links that may be of interest:
 - [How do I create a bot?](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
 - [How to create an Telegram Bot Token & Get Chat ID?](https://www.youtube.com/watch?v=2jdsvSKVXNs)
 
-En el apartado de `Config.h` únicamente deberás poner el idioma del mensaje, token y el chatId que corresponda.
+In the `Config.h` section you only have to put the language of the message, token and the corresponding chatId.
 ```c#
 String telegramLang= "ESP"  // ESP= Spanish |  ENG = English
 String BOTtoken = "botxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";  //token format is botXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -287,8 +279,8 @@ IPAddress telegramServer(149, 154, 167, 200); // IP de api.telegram.org
 <br/>
 <br/>
 
-### Configuración de DDNS
-Si lo deseas, puedes configurar el servicio de DDNS. ¿Qué para que lo necesitas? Pues por ejemplo por si quieres acceder desde el exterior a tu OBD o necesitas saber la IP de tu vehículo. Yo lo he dejado preparado ya que me interesa en un futuro próximo para modificaciones que tengo pensadas. Yo utilizo el servicio de [NOIP.com](https://www.noip.com/), pero verás que puedes usar otros.
+###DDNS Settings
+If you want, you can configure the DDNS service. What do you need it for? Well, for example, if you want to access your OBD from abroad or you need to know the IP of your vehicle. I have left it prepared since I am interested in the near future for modifications that I have in mind. I use the [NOIP.com](https://www.noip.com/) service, but you will see that you can use others.
 
 ```c#
 // ***************************************************************************
@@ -303,8 +295,8 @@ int ddnsUpdate = 10000; // Check for New Ip Every 10 Seconds.
 
 <br/>
 
-### Otras configuraciones
-En este apartado está el nombre del vehículo que se envía en la notificación vía Telegram, el tamaño de la batería del nuestro Ioniq y las configuraciones horarias de zona. Tengo pendiente calcular automáticamente si es verano o invierno.
+### Other settings
+In this section is the name of the vehicle that is sent in the notification via Telegram, the size of the battery of our Ioniq and the time zone settings. I have yet to automatically calculate if it is summer or winter.
 ```c#
 String vehicleID = "My IONIQ";   // VehicleID is sended in telegram message
 float kWhBattery = 8.9;          // For Ioniq PHEV
@@ -313,8 +305,8 @@ int timeZone = 1;                // Your time zone
 bool daylightSaving = true;      // False for winter time, true for summer time.
 ```
 
-## Librerías
-En las librerias `NTPClient.h` y `EasyDDNS.h` añado las URL's de descarga para facilitar la instalación.
+## Libraries
+In the `NTPClient.h` and `EasyDDNS.h` libraries I add the download URLs to facilitate the installation.
 ```c#
 #include <time.h>              //
 #include <NTPClient.h>         // https://github.com/arduino-libraries/NTPClient
@@ -327,8 +319,8 @@ En las librerias `NTPClient.h` y `EasyDDNS.h` añado las URL's de descarga para 
 <br/>
 <br/>
 
-**IMPORTANTE:** 
-Hace falta destacar un punto importante sobre la libería `PubSubClient.h`, que es la encargada de enviar los paquetes MQTT al broker. Como se envía en un único *topic* y el tamaño supera los 127 bits máximos que permite, debe modificarse el tamaño de `MQTT_MAX_PACKET_SIZE`a 256. Deberás buscar el fichero `PubSubClient.h`que debería estar en *Arduino/libraries/PubSubClient/src* y editarlo:
+**IMPORTANT:**
+It is necessary to highlight an important point about the `PubSubClient.h` library, which is in charge of sending the MQTT packets to the broker. As it is sent in a single *topic* and the size exceeds the maximum 127 bits it allows, the size of `MQTT_MAX_PACKET_SIZE` must be changed to 256. You will have to look for the file `PubSubClient.h` which should be in *Arduino/libraries/PubSubClient /src* and edit it:
 
 ```c#
 // MQTT_MAX_PACKET_SIZE : Maximum packet size
@@ -339,16 +331,15 @@ Hace falta destacar un punto importante sobre la libería `PubSubClient.h`, que 
 <br/>
 <br/>
 
-# Compilado e instalación
-Si has seguido los pasos indicados, puedes compilar e instalar. Te recomiendo que habilites el `TEST_MODE` para poder ver como funciona a través de la cónsola serie y así podrás ver los datos en tu broker de MQTT a tiempo real.
-
+# Compilation and installation
+If you have followed the given steps, you can compile and install. I recommend that you enable `TEST_MODE` so you can see how it works through the serial console so you can see the data in your MQTT broker in real time.
 ![console](https://user-images.githubusercontent.com/50306926/59964207-02bc2700-94fe-11e9-987e-66417af0bc00.jpg)
 
 <br/>
 <br/>
 
-# Visualización de datos en tu smartphone o navegador
-Ahora es momento de abrir la carpeta HTML de la distribución. Deberás abrir el fichero `index.html` con un editor de texto y localizar las siguientes líneas, donde debes colocar los datos de conexión a servidor del broker MQTT:
+# Visualization of data on your smartphone or browser
+Now it's time to open the distribution's HTML folder. You must open the `index.html` file with a text editor and locate the following lines, where you must place the connection data to the MQTT broker server:
 
 ```javascript
 /// CONFIGURATION MQTT BROKER
@@ -360,12 +351,12 @@ var client = new Paho.MQTT.Client("m24.cloudmqtt.com", 12345, clientId);  // Edi
 <br/>
 <br/>
 
-Ahora abre `index.html` con un navegador y si tienes la placa con el Ioniq BSO Remote Monitor en funcionamiento y en `TEST_MODE`, deberías ver como los datos van actualizándose. Si es así, copia la carpeta `HTML` a tu smartphone mediante algunos de los programas existentes en la APP Store y deja esa carpeta en algún lugar accesible, como por ejemplo la carpeta *Downloads*. Ahora puedes abrir el `index.html` desde el navegador de tu móvil y ver que todo funciona.
+Now open `index.html` with a browser and if you have the board with the Ioniq BSO Remote Monitor running and in `TEST_MODE`, you should see the data update. If so, copy the `HTML` folder to your smartphone using some of the existing programs in the APP Store and leave that folder somewhere accessible, such as the *Downloads* folder. Now you can open the `index.html` from your mobile browser and see that everything works.
 <br/>
 
-Estamos acabando.... Comenta la linea correspondiente en `Config.h` para desactivar `TEST_MODE`, compila y envía el programa de nuevo a tu placa ESP. Recuerda poner los datos de la WiFi de tu vehículo para que funcione, ya sea compartiendo desde tu smartphone o mediante un router. Conecta el OBD modificado en el Ioniq, alimenta la placa ESP con el programa todo y deberías ver los datos de tu vehículo. 
+We're done.... Comment out the corresponding line in `Config.h` to disable `TEST_MODE`, compile and send the program back to your ESP board. Remember to put the WiFi data of your vehicle so that it works, either sharing from your smartphone or through a router. Plug the modified OBD into the Ioniq, feed the ESP board the program todo and you should see your vehicle data.
 
-¿Funciona? Espero que si.
+Works? I hope so.
 <br/>
 <br/>
 <br/>
@@ -394,15 +385,15 @@ Estamos acabando.... Comenta la linea correspondiente en `Config.h` para desacti
 <br/>
 <br/>
 
-## **OTRA PERSONALIZACIÓN**
+## **OTHER CUSTOMIZATION**
 
 ![Screenshot_IONIQ_BSO_example1](https://user-images.githubusercontent.com/50306926/59941542-b91bff80-945d-11e9-92df-750d3fc649ae.png)
 <br/>
 <br/>
 <br/>
 
-## Descarga de responsabilidad
-*Ioniq BSO Remote Monitor  ("El Software") se proporciona como está. Utilice el software bajo su propio riesgo. Los autores no garantizan el rendimiento o la adecuación para un propósito particular, o ninguna otra garantía expresa o implícita. Ninguna comunicación oral o escrita de o autorización de los autores creará una garantía. Bajo ninguna circunstancia, los autores serán responsables por daños directos, indirectos, especiales, incidentales o consecuentes resultantes del uso, mal uso o incapacidad de usar el software, incluso si el autor ha sido avisado de la posibilidad de tal daño. Estas exclusiones y limitaciones pueden no aplicarse en todas las jurisdicciones. Puede tener derechos adicionales y algunas de estas limitaciones pueden no aplicarse a usted. Este software solo está diseñado para uso científico.*
+## Disclaimer
+*Ioniq BSO Remote Monitor ("The Software") is provided as is. Use the software at your own risk. The authors make no warranty of performance or fitness for a particular purpose, or any other express or implied warranties. No oral or written communication from or authorization of the authors will create a guarantee. Under no circumstances shall the authors be liable for direct, indirect, special, incidental, or consequential damages resulting from the use, misuse, or inability to use the software, even if the author has been advised of the possibility of such damage. These exclusions and limitations may not apply in all jurisdictions. You may have additional rights and some of these limitations may not apply to you. This software is intended for scientific use only.*
 
 <br/>
 <br/>
