@@ -7,7 +7,7 @@
 
 ---------------------------------------------------------------
 
-# VERSIÓN EN ESPAÑOL
+# ENGLISH VERSION
 **As soon as I finish writing in Spanish, I will try to write it in English. Meanwhile, Google Translate will help you.**
 
 - [What is it for?](#para-que-sirve)
@@ -404,7 +404,3 @@ Works? I hope so.
 
 ## Formal disclaimer
 *Ioniq BSO Remote Monitor (“The Software”) is provided as is. Use the software at your own risk. The authors make no warranties as to performance or fitness for a particular purpose, or any other warranties whether expressed or implied. no oral or written communication from or information provided by the authors shall create a warranty. Under no circumstances shall the authors be liable for direct, indirect, special, incidental, or consequential damages resulting from the use, misuse, or inability to use the software, even if the author has been advised of the possibility of such damages. These exclusions and limitations may not apply in all jurisdictions. You may have additional rights and some of these limitations may not apply to you. This software is only intended for scientific usage.*
-
-
-
-
