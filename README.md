@@ -40,12 +40,12 @@
   - [Screenshots](#Screenshots)
 
 
-## ¿Para que sirve?
-Antes de nada quiero decir que aunque profesionalmente me he dedicado a la programación y he estado relacionado con la electrónica, Arduino, ESP8266 y el lenguaje C++ no es mi mundo. Lo he realizado lo mejor que podía, pero seguro que encontrareis errores y mejores maneras de hacer muchos de los pasos que he programado. Sed benébolos :pray:. Gracias.
+## What is it for?
+First of all I want to say that although professionally I have dedicated myself to programming and have been related to electronics, Arduino, ESP8266 and the C++ language is not my world. I've done my best, but I'm sure you'll find bugs and better ways to do many of the steps I've programmed. Be benevolent :pray:. Thanks.
 
-Bien, los vehículos Hyundai Ioniq PHEV o EV vendidos en Europa no incluyen ningún sistema de monitorización de la batería o del proceso de carga, por lo que decidí hacerme un sistema que me permitiera dejar mi Ioniq cargando y que mediante mi smartphone pudiera ver el estado y me avisase al finalizar de la carga. Además quería que el sistema fuera lo mas sencillo posible, aunque haya que tener conocimientos de programación y algo de electrónica básica. No es equiparable al sistema BlueLink que se suministra en USA o Corea, pero realiza las funciones básicas para las que se ha programado.
+Well, Hyundai Ioniq PHEV or EV vehicles sold in Europe do not include any monitoring system for the battery or the charging process, so I decided to make a system that would allow me to leave my Ioniq charging and through my smartphone I could see the status and notify me at the end of the load. In addition, I wanted the system to be as simple as possible, although programming knowledge and some basic electronics are required. It is not comparable to the BlueLink system supplied in the USA or Korea, but it performs the basic functions for which it has been programmed.
 
-Un punto importante es que yo ni me hago responsable de la manipulación que hagas a tu OBD o en tu Ioniq. Conectar un OBD al coche no hace perder la garantía, pero si te equivocas, lo haces mal o produces un cortocircuito, es bajo tu única responsabilidad.
+An important point is that I am not responsible for the manipulation you do to your OBD or your Ioniq. Connecting an OBD to the car does not void the warranty, but if you make a mistake, do it wrong or produce a short circuit, it is your sole responsibility.
 
 
 ## ¿Como funciona?
